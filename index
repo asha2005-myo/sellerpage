@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xenari Stars Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080912;
+      --bg-soft: #0f1220;
+      --card: rgba(255,255,255,0.06);
+      --card-border: rgba(255,255,255,0.12);
+      --text: #ffffff;
+      --muted: #b7bfd8;
+      --primary: #6c5cff;
+      --secondary: #00e5ff;
+      --success: #2ee6a6;
+      --warning: #ffcb57;
+      --shadow: 0 20px 50px rgba(0,0,0,0.45);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --container: 1180px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(108, 92, 255, 0.28), transparent 28%),
+        radial-gradient(circle at 85% 10%, rgba(0, 229, 255, 0.18), transparent 22%),
+        radial-gradient(circle at 70% 70%, rgba(108, 92, 255, 0.12), transparent 28%),
+        linear-gradient(160deg, #05060b 0%, #0c0f1b 50%, #080912 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(to bottom, rgba(255,255,255,0.35), transparent 70%);
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(var(--container), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .glass {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+    }
+
+    .section {
+      padding: 88px 0;
+      position: relative;
+    }
+
+    .section-title {
+      font-size: clamp(30px, 5vw, 46px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      max-width: 700px;
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #d9deef;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .pill .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      box-shadow: 0 0 18px var(--secondary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-size: 15px;
+      font-weight: 600;
+      transition: 0.28s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 0 28px rgba(108, 92, 255, 0.45);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 38px rgba(0, 229, 255, 0.25), 0 14px 32px rgba(108, 92, 255, 0.35);
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(255,255,255,0.14);
+      color: white;
+    }
+
+    .btn-outline:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0, 229, 255, 0.35);
+      box-shadow: 0 0 18px rgba(0, 229, 255, 0.12);
+    }
+
+    .nav-wrap {
+      position: sticky;
+      top: 18px;
+      z-index: 50;
+      padding-top: 18px;
+    }
+
+    nav {
+      border-radius: 22px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(108, 92, 255, 0.22), rgba(0, 229, 255, 0.22));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 0 24px rgba(108, 92, 255, 0.22);
+      font-size: 20px;
+    }
+
+    .brand-text h1 {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .brand-text p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #d8deef;
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    .hero {
+      padding: 72px 0 36px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .hero-content {
+      padding: 22px 0;
+    }
+
+    .hero-title {
+      font-size: clamp(38px, 7vw, 72px);
+      line-height: 1.04;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .hero-title .gradient {
+      background: linear-gradient(135deg, #ffffff 0%, #c8d1ff 35%, #00e5ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+      max-width: 650px;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .mini-stat {
+      padding: 18px;
+      border-radius: var(--radius-md);
+      min-height: 100px;
+    }
+
+    .mini-stat h3 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .mini-stat p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-card {
+      border-radius: 30px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before,
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(30px);
+      opacity: 0.7;
+    }
+
+    .hero-card::before {
+      width: 180px;
+      height: 180px;
+      background: rgba(108, 92, 255, 0.28);
+      top: -50px;
+      right: -40px;
+    }
+
+    .hero-card::after {
+      width: 140px;
+      height: 140px;
+      background: rgba(0, 229, 255, 0.18);
+      bottom: -30px;
+      left: -20px;
+    }
+
+    .dashboard {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 16px;
+    }
+
+    .dashboard-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .badge-live {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #eafffb;
+      background: rgba(46, 230, 166, 0.12);
+      border: 1px solid rgba(46, 230, 166, 0.28);
+    }
+
+    .price-panel,
+    .order-panel,
+    .payments-panel {
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .price-panel h3,
+    .order-panel h3,
+    .payments-panel h3 {
+      font-size: 16px;
+      margin-bottom: 14px;
+    }
+
+    .price-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .price-item {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.045);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .price-item span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .price-item strong {
+      font-size: 15px;
+    }
+
+    .order-status {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.045);
+    }
+
+    .order-status small {
+      color: var(--muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .step {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(108, 92, 255, 0.22), rgba(0, 229, 255, 0.22));
+      border: 1px solid rgba(255,255,255,0.1);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      margin-top: 2px;
+    }
+
+    .pay-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pay-tag {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 13px;
+      color: #e6ebfb;
+    }
+
+    .products-grid,
+    .pricing-grid,
+    .trust-grid,
+    .proof-grid,
+    .reviews-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .product-card,
+    .pricing-card,
+    .trust-card,
+    .proof-card,
+    .review-card,
+    .cta-panel {
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::before,
+    .pricing-card.highlight::before,
+    .cta-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(108, 92, 255, 0.16), rgba(0, 229, 255, 0.08));
+      pointer-events: none;
+    }
+
+    .product-card > *,
+    .pricing-card > *,
+    .cta-panel > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-icon,
+    .trust-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, rgba(108, 92, 255, 0.2), rgba(0, 229, 255, 0.18));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 0 24px rgba(108, 92, 255, 0.16);
+    }
+
+    .product-card h3,
+    .pricing-card h3,
+    .trust-card h3,
+    .review-card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .product-card p,
+    .pricing-card p,
+    .trust-card p,
+    .review-card p,
+    .proof-card p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .product-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 22px;
+    }
+
+    .chip {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 12px;
+      color: #dce3f8;
+    }
+
+    .pricing-grid {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      min-height: 100%;
+    }
+
+    .pricing-card.highlight {
+      border: 1px solid rgba(0,229,255,0.34);
+      box-shadow: 0 0 30px rgba(108,92,255,0.22), 0 0 50px rgba(0,229,255,0.08);
+      transform: translateY(-8px);
+    }
+
+    .best-badge {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,229,255,0.12);
+      border: 1px solid rgba(0,229,255,0.28);
+      color: #dffcff;
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    .price-amount {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      margin: 16px 0 8px;
+    }
+
+    .price-amount strong {
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .price-amount span {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .pricing-features {
+      display: grid;
+      gap: 12px;
+      margin: 22px 0 28px;
+    }
+
+    .pricing-features li {
+      list-style: none;
+      color: #edf1ff;
+      font-size: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .pricing-features li::before {
+      content: "✓";
+      color: var(--secondary);
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    .trust-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .trust-card {
+      text-align: center;
+      padding: 28px 22px;
+    }
+
+    .trust-icon {
+      margin: 0 auto 18px;
+    }
+
+    .proof-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .proof-card {
+      padding: 18px;
+      transition: 0.26s ease;
+    }
+
+    .proof-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0,229,255,0.26);
+      box-shadow: 0 0 26px rgba(0,229,255,0.08), 0 20px 42px rgba(0,0,0,0.32);
+    }
+
+    .proof-image {
+      aspect-ratio: 16/10;
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(108,92,255,0.18), rgba(0,229,255,0.1)),
+        rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 18px;
+      margin-bottom: 16px;
+      display: grid;
+      align-items: stretch;
+    }
+
+    .proof-ui {
+      width: 100%;
+      height: 100%;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .proof-ui .bar {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .proof-ui .bar::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: var(--w, 70%);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: inherit;
+    }
+
+    .proof-ui .mini-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .proof-ui .box {
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .proof-ui .stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .reviews-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .review-card {
+      min-height: 100%;
+    }
+
+    .stars {
+      color: var(--warning);
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+
+    .review-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      background: linear-gradient(135deg, rgba(108, 92, 255, 0.25), rgba(0, 229, 255, 0.2));
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .review-user small {
+      display: block;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .cta-panel {
+      text-align: center;
+      padding: 48px 22px;
+    }
+
+    .cta-panel .section-title,
+    .cta-panel .section-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    footer {
+      padding: 30px 0 48px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .floating-telegram {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-size: 26px;
+      box-shadow: 0 16px 30px rgba(108, 92, 255, 0.4), 0 0 24px rgba(0, 229, 255, 0.25);
+      transition: 0.25s ease;
+    }
+
+    .floating-telegram:hover {
+      transform: translateY(-4px) scale(1.02);
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .products-grid,
+      .pricing-grid,
+      .proof-grid,
+      .reviews-grid,
+      .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-grid {
+        align-items: start;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+
+      .hero-grid,
+      .products-grid,
+      .pricing-grid,
+      .proof-grid,
+      .reviews-grid,
+      .trust-grid,
+      .mini-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-card.highlight {
+        transform: none;
+      }
+
+      .section {
+        padding: 72px 0;
+      }
+
+      nav {
+        padding: 14px;
+      }
+
+      .brand-text p {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap container">
+    <nav class="glass">
+      <div class="brand">
+        <div class="brand-logo">⭐</div>
+        <div class="brand-text">
+          <h1>Xenari Stars Shop</h1>
+          <p>Trusted Telegram seller brand</p>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="#products">Products</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#trust">Trust</a>
+        <a href="#proof">Proof</a>
+        <a href="#reviews">Reviews</a>
+      </div>
+
+      <a class="btn btn-primary" href="https://t.me/your_bot" target="_blank">Buy on Telegram</a>
+    </nav>
+  </div>
+
+  <section class="hero section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="pill">
+          <span class="dot"></span>
+          Fast delivery • Best price • Trusted service
+        </div>
+
+        <h2 class="hero-title">
+          Buy <span class="gradient">Telegram Stars</span>, Gifts & Game Top-Up<br>
+          with a premium seller brand.
+        </h2>
+
+        <p class="hero-text">
+          Xenari Stars Shop helps customers buy Stars, gifts, NFTs, and game top-up quickly through Telegram.
+          Clear pricing, trusted proof, instant order flow, and a smooth buying experience — all in one place.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://t.me/your_bot" target="_blank">🚀 Buy Now</a>
+          <a class="btn btn-outline" href="#products">💎 View Products</a>
+        </div>
+
+        <div class="mini-stats">
+          <div class="mini-stat glass">
+            <h3>24/7</h3>
+            <p>Telegram-based ordering flow for quick replies and fast customer support.</p>
+          </div>
+          <div class="mini-stat glass">
+            <h3>Fast</h3>
+            <p>Simple checkout process from website to Telegram bot with less friction.</p>
+          </div>
+          <div class="mini-stat glass">
+            <h3>Trusted</h3>
+            <p>Clear proof, payment methods, and strong seller branding to increase conversions.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card glass">
+          <div class="dashboard">
+            <div class="dashboard-top">
+              <div>
+                <strong style="font-size: 18px;">Live Shop Overview</strong>
+                <p style="color: var(--muted); font-size: 13px; margin-top: 4px;">Telegram-driven order experience</p>
+              </div>
+              <div class="badge-live">● Online</div>
+            </div>
+
+            <div class="price-panel">
+              <h3>Popular Prices</h3>
+              <div class="price-list">
+                <div class="price-item">
+                  <div>
+                    <strong>100 Stars</strong>
+                    <span>Starter package</span>
+                  </div>
+                  <strong>6,800 MMK</strong>
+                </div>
+                <div class="price-item">
+                  <div>
+                    <strong>500 Stars</strong>
+                    <span>Best value pack</span>
+                  </div>
+                  <strong>33,000 MMK</strong>
+                </div>
+                <div class="price-item">
+                  <div>
+                    <strong>1000 Stars</strong>
+                    <span>Power buyer pack</span>
+                  </div>
+                  <strong>65,000 MMK</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-panel">
+              <h3>How Orders Work</h3>
+              <div class="order-status">
+                <div>
+                  <strong>Bot Checkout</strong>
+                  <small>Website → Telegram → Payment → Delivery</small>
+                </div>
+                <div style="color: var(--success); font-weight: 700;">Ready</div>
+              </div>
+              <div class="steps">
+                <div class="step">
+                  <div class="step-number">1</div>
+                  <div>
+                    <strong>Choose product</strong>
+                    <p>Pick Stars, gifts, NFTs, or game top-up package.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <div>
+                    <strong>Open Telegram bot</strong>
+                    <p>Customer taps Buy Now and continues inside your bot.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <div>
+                    <strong>Confirm and deliver</strong>
+                    <p>Payment is checked and order is completed smoothly.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="payments-panel">
+              <h3>Payment Methods</h3>
+              <div class="pay-tags">
+                <span class="pay-tag">KPay</span>
+                <span class="pay-tag">Wave</span>
+                <span class="pay-tag">AYA</span>
+                <span class="pay-tag">Telegram Bot</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="products">
+    <div class="container">
+      <div class="pill"><span class="dot"></span> Products</div>
+      <h2 class="section-title">Products your customers can buy instantly</h2>
+      <p class="section-subtitle">
+        Keep the product selection clear and visual. A simple product section helps customers understand what you sell and move faster to Telegram checkout.
+      </p>
+
+      <div class="products-grid">
+        <article class="product-card glass">
+          <div class="product-icon">⭐</div>
+          <h3>Telegram Stars</h3>
+          <p>
+            Sell Stars packages with clear prices and instant order buttons. This is your main product section and should be the easiest one to understand.
+          </p>
+          <div class="product-meta">
+            <span class="chip">Fast order</span>
+            <span class="chip">Popular product</span>
+            <span class="chip">Telegram checkout</span>
+          </div>
+          <a class="btn btn-primary" href="https://t.me/your_bot" target="_blank">Buy Stars</a>
+        </article>
+
+        <article class="product-card glass">
+          <div class="product-icon">🎁</div>
+          <h3>Gifts & NFTs</h3>
+          <p>
+            Showcase gift-related products, premium gift items, NFT-style offers, or Telegram collectible services in a premium visual card.
+          </p>
+          <div class="product-meta">
+            <span class="chip">Premium items</span>
+            <span class="chip">Collector focus</span>
+            <span class="chip">Brand trust</span>
+          </div>
+          <a class="btn btn-primary" href="https://t.me/your_bot" target="_blank">View Gifts</a>
+        </article>
+
+        <article class="product-card glass">
+          <div class="product-icon">🎮</div>
+          <h3>Game Top-Up</h3>
+          <p>
+            Add game services like MLBB, PUBG, or other top-up offers. Customers can go straight from your website into the Telegram buying flow.
+          </p>
+          <div class="product-meta">
+            <span class="chip">Game services</span>
+            <span class="chip">Quick inquiry</span>
+            <span class="chip">Flexible pricing</span>
+          </div>
+          <a class="btn btn-primary" href="https://t.me/your_bot" target="_blank">Top Up Now</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="container">
+      <div class="pill"><span class="dot"></span> Pricing</div>
+      <h2 class="section-title">Simple pricing that helps customers decide faster</h2>
+      <p class="section-subtitle">
+        Transparent pricing builds trust. Show your most popular packages first, highlight the best value package, and keep the order button visible.
+      </p>
+
+      <div class="pricing-grid">
+        <article class="pricing-card glass">
+          <h3>100 Stars</h3>
+          <p>Good for first-time buyers who want a quick and affordable order.</p>
+          <div class="price-amount">
+            <strong>6,800</strong>
+            <span>MMK</span>
+          </div>
+          <ul class="pricing-features">
+            <li>Great starter pack</li>
+            <li>Fast Telegram checkout</li>
+            <li>Good for testing trust</li>
+          </ul>
+          <a class="btn btn-outline" href="https://t.me/your_bot" target="_blank">Choose Plan</a>
+        </article>
+
+        <article class="pricing-card glass highlight">
+          <span class="best-badge">Best Value</span>
+          <h3>500 Stars</h3>
+          <p>This package should visually stand out because it gives the best balance between price and value.</p>
+          <div class="price-amount">
+            <strong>33,000</strong>
+            <span>MMK</span>
+          </div>
+          <ul class="pricing-features">
+            <li>Most attractive pricing</li>
+            <li>Best conversion package</li>
+            <li>Perfect for your main CTA</li>
+          </ul>
+          <a class="btn btn-primary" href="https://t.me/your_bot" target="_blank">Buy Best Value</a>
+        </article>
+
+        <article class="pricing-card glass">
+          <h3>1000 Stars</h3>
+          <p>For repeat customers or larger buyers who already trust your service and want bigger value.</p>
+          <div class="price-amount">
+            <strong>65,000</strong>
+            <span>MMK</span>
+          </div>
+          <ul class="pricing-features">
+            <li>Best for power buyers</li>
+            <li>Premium buyer experience</li>
+            <li>Strong revenue package</li>
+          </ul>
+          <a class="btn btn-outline" href="https://t.me/your_bot" target="_blank">Choose Plan</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="trust">
+    <div class="container">
+      <div class="pill"><span class="dot"></span> Trust Section</div>
+      <h2 class="section-title">Show customers why they should trust your seller brand</h2>
+      <p class="section-subtitle">
+        Trust is everything for Telegram selling. This section should reduce doubt and make buyers feel safe before they click your Telegram button.
+      </p>
+
+      <div class="trust-grid">
+        <article class="trust-card glass">
+          <div class="trust-icon">🔒</div>
+          <h3>Secure Payment</h3>
+          <p>List supported payment methods clearly so buyers know how they can pay safely.</p>
+        </article>
+
+        <article class="trust-card glass">
+          <div class="trust-icon">⚡</div>
+          <h3>Fast Delivery</h3>
+          <p>Customers want quick service. Make speed one of your strongest selling points.</p>
+        </article>
+
+        <article class="trust-card glass">
+          <div class="trust-icon">🧾</div>
+          <h3>Real Proof</h3>
+          <p>Order screenshots, payment proof, and bot previews help your brand feel real and active.</p>
+        </article>
+
+        <article class="trust-card glass">
+          <div class="trust-icon">📞</div>
+          <h3>Support Ready</h3>
+          <p>Telegram support gives customers a direct way to ask, confirm, and buy with confidence.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="proof">
+    <div class="container">
+      <div class="pill"><span class="dot"></span> Proof</div>
+      <h2 class="section-title">Use proof to make your website look active and trusted</h2>
+      <p class="section-subtitle">
+        Replace these preview cards with your real bot screenshots, order confirmations, payment slips, or successful delivery examples.
+      </p>
+
+      <div class="proof-grid">
+        <article class="proof-card glass">
+          <div class="proof-image">
+            <div class="proof-ui">
+              <div class="bar" style="--w: 72%;"></div>
+              <div class="mini-grid">
+                <div class="box"></div>
+                <div class="stack">
+                  <div class="box"></div>
+                  <div class="box"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h3 style="font-size:20px; margin-bottom:10px;">Telegram Bot Screenshot</h3>
+          <p>Show the real bot interface so customers can see what happens after they click Buy Now.</p>
+        </article>
+
+        <article class="proof-card glass">
+          <div class="proof-image">
+            <div class="proof-ui">
+              <div class="bar" style="--w: 58%;"></div>
+              <div class="mini-grid">
+                <div class="stack">
+                  <div class="box"></div>
+                  <div class="box"></div>
+                </div>
+                <div class="box"></div>
+              </div>
+            </div>
+          </div>
+          <h3 style="font-size:20px; margin-bottom:10px;">Successful Order Proof</h3>
+          <p>Display order completion screens or transaction results to reduce doubt for new buyers.</p>
+        </article>
+
+        <article class="proof-card glass">
+          <div class="proof-image">
+            <div class="proof-ui">
+              <div class="bar" style="--w: 84%;"></div>
+              <div class="mini-grid">
+                <div class="box"></div>
+                <div class="box"></div>
+              </div>
+            </div>
+          </div>
+          <h3 style="font-size:20px; margin-bottom:10px;">Payment Confirmation</h3>
+          <p>Upload payment screenshots or customer confirmations to strengthen your seller reputation.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="reviews">
+    <div class="container">
+      <div class="pill"><span class="dot"></span> Reviews</div>
+      <h2 class="section-title">Customer reviews help new buyers feel safer</h2>
+      <p class="section-subtitle">
+        Even a small number of good reviews improves trust a lot. Use short, believable reviews with clear positive outcomes.
+      </p>
+
+      <div class="reviews-grid">
+        <article class="review-card glass">
+          <div class="stars">★★★★★</div>
+          <h3>Fast delivery</h3>
+          <p>
+            I ordered through Telegram and the process was very easy. The seller replied quickly and everything was smooth.
+          </p>
+          <div class="review-user">
+            <div class="avatar">A</div>
+            <div>
+              <strong>Aung</strong>
+              <small>Telegram customer</small>
+            </div>
+          </div>
+        </article>
+
+        <article class="review-card glass">
+          <div class="stars">★★★★★</div>
+          <h3>Trusted seller</h3>
+          <p>
+            The website looked professional, the pricing was clear, and the Telegram bot made ordering simple. I would buy again.
+          </p>
+          <div class="review-user">
+            <div class="avatar">M</div>
+            <div>
+              <strong>May</strong>
+              <small>Repeat buyer</small>
+            </div>
+          </div>
+        </article>
+
+        <article class="review-card glass">
+          <div class="stars">★★★★★</div>
+          <h3>Very easy process</h3>
+          <p>
+            I liked how everything led directly to Telegram. No confusing steps, no extra pages, just quick buying flow.
+          </p>
+          <div class="review-user">
+            <div class="avatar">Z</div>
+            <div>
+              <strong>Zin</strong>
+              <small>New customer</small>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="cta-panel glass">
+        <div class="pill"><span class="dot"></span> Telegram Button</div>
+        <h2 class="section-title">Ready to buy from Xenari Stars Shop?</h2>
+        <p class="section-subtitle">
+          Put your strongest call-to-action here. The goal of the website is simple: build trust, show products, show price, and send customers into your Telegram bot.
+        </p>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="https://t.me/your_bot" target="_blank">🚀 Start Buying on Telegram</a>
+          <a class="btn btn-outline" href="#pricing">💰 Check Prices</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      © 2026 Xenari Stars Shop • Seller brand website UI template
+    </div>
+  </footer>
+
+  <a class="floating-telegram" href="https://t.me/your_bot" target="_blank" aria-label="Open Telegram bot">✈</a>
+</body>
+</html>
